@@ -22,6 +22,14 @@ export default {
                     context.state.errors = e.response.data.errors;
                 }
             }
+        },
+        async loadUser(context) {
+            try {
+                const response = await axios.get(apiPath('/user'));
+                context.state.user = response.data;
+                context.state.authorized = true;
+            } catch (e) {
+            }
         }
     }
 }
