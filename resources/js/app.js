@@ -1,9 +1,16 @@
+import {registerLayouts} from "./helpers/layouts";
+
 require('./bootstrap');
 
 import {createApp} from "vue";
 import Root from "./components/Root";
 import store from "./store";
+import router from "./router";
 
-createApp(Root)
+const app = createApp(Root)
     .use(store)
-    .mount('#app');
+    .use(router);
+
+registerLayouts(app);
+
+app.mount('#app');
