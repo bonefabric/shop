@@ -44,6 +44,15 @@ export default {
                 context.state.authorized = true;
             } catch (e) {
             }
+        },
+
+        async logout(context) {
+            try {
+                await axios.post(apiPath('/logout'));
+                context.state.user = {};
+                context.state.authorized = false;
+            } catch (e) {
+            }
         }
     }
 }

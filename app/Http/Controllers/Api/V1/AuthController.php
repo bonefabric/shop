@@ -7,7 +7,11 @@ use App\Http\Requests\Api\V1\LoginRequest;
 use App\Http\Requests\Api\V1\RegisterRequest;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends ApiV1Controller
 {
@@ -45,5 +49,14 @@ class AuthController extends ApiV1Controller
             return $user;
         }
         abort(401);
+    }
+
+    /**
+     * @return void
+     */
+    public function logout()
+    {
+        Auth::logout();
+        Session::regenerate();
     }
 }
