@@ -23,6 +23,20 @@ export default {
                 }
             }
         },
+
+        async login(context, payload) {
+            context.commit('clearErrors');
+            try {
+                const response = await axios.post(apiPath('/login'), payload);
+                context.state.user = response.data;
+                context.state.authorized = true;
+            } catch (e) {
+                if (e.response && e.response.data && e.response.data.errors) {
+                    context.state.errors = e.response.data.errors;
+                }
+            }
+        },
+
         async loadUser(context) {
             try {
                 const response = await axios.get(apiPath('/user'));

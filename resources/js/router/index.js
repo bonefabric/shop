@@ -13,7 +13,15 @@ const routes = [
         component: () => import("../components/views/Register"),
         meta: {
             layout: 'dark-layout',
-        }
+        },
+    },
+    {
+        name: 'login',
+        path: '/login',
+        component: () => import("../components/views/Login"),
+        meta: {
+            layout: 'dark-layout',
+        },
     },
 ];
 
