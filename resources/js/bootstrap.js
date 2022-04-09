@@ -1,5 +1,6 @@
-window.API_VERSION = 'v1';
+const API_VERSION = 'v1';
 
+window.apiPath = path => '/api/' + API_VERSION + path;
 
 window._ = require('lodash');
 
