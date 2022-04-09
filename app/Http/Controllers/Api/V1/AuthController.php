@@ -5,26 +5,25 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\V1\LoginRequest;
 use App\Http\Requests\Api\V1\RegisterRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends ApiV1Controller
 {
 
-    /**
-     * @param RegisterRequest $registerRequest
-     * @return User
-     */
-    public function register(RegisterRequest $registerRequest): User
+    public function register(RegisterRequest $registerRequest)
     {
-        $user = User::create($registerRequest->validated());
+        /** @var Role $role */
+        $role = Role::firstOrCreate(['name' => 'default']);
+
+        /** @var User $user */
+        $user = User::create([...$registerRequest->validated(), 'role_id' => $role->id]);
         Auth::login($user);
-        return $user;
+        // TODO fix loading role
+        return $user->load('role');
     }
 
     /**
@@ -40,13 +39,10 @@ class AuthController extends ApiV1Controller
         abort(401);
     }
 
-    /**
-     * @return User|Authenticatable
-     */
     public function user()
     {
         if ($user = Auth::user()) {
-            return $user;
+            return $user->load('role');
         }
         abort(401);
     }
