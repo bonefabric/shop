@@ -1,3 +1,6 @@
+window.API_VERSION = 'v1';
+
+
 window._ = require('lodash');
 
 /**
