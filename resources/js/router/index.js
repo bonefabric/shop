@@ -59,6 +59,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,
+    linkActiveClass: 'link-active',
 });
 
 export const addFirewall = function (store) {

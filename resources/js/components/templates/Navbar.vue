@@ -34,7 +34,10 @@ const logout = async () => {
 <style lang="scss" scoped>
 
 a {
-    @apply underline pl-3 text-blue-800
-}
+    @apply pl-3 hover:text-black text-gray-600;
 
+    &.link-active {
+        @apply text-black;
+    }
+}
 </style>
