@@ -45,6 +45,15 @@ const routes = [
             access: access.adminOnly,
         },
     },
+    {
+        path: '/admin/goods',
+        name: 'admin.goods',
+        component: () => import("../components/views/admin/Goods"),
+        meta: {
+            layout: 'admin-layout',
+            access: access.adminOnly,
+        },
+    },
 ];
 
 const router = createRouter({
