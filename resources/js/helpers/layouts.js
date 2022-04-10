@@ -1,7 +1,7 @@
 import DefaultLayout from "../components/layouts/DefaultLayout";
-import DarkLayout from "../components/layouts/DarkLayout";
+import AdminLayout from "../components/layouts/AdminLayout";
 
 export const registerLayouts = function (app) {
     app.component('DefaultLayout', DefaultLayout);
-    app.component('DarkLayout', DarkLayout);
+    app.component('AdminLayout', AdminLayout);
 }

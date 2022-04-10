@@ -5,6 +5,11 @@ export default {
         user: {},
         authorized: false,
     },
+    getters: {
+        isAdmin(state) {
+            return state.authorized && state.user && state.user.isAdmin;
+        }
+    },
     mutations: {
         clearErrors(state) {
             state.errors = {};

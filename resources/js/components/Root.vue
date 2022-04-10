@@ -28,6 +28,12 @@ onBeforeMount(async () => {
             await router.push({name: 'login'});
         } else if (currentRoute.meta.access.guest && store.state.auth.authorized) {
             await router.push({name: 'index'});
+        } else if (
+            currentRoute.meta.access.admin && (
+                !store.state.auth.authorized ||
+                !store.state.auth.user ||
+                !store.state.auth.user.isAdmin)) {
+            await router.push({name: 'index'});
         }
     }
 

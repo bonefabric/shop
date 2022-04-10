@@ -8,6 +8,7 @@
             <router-link :to="{ name: 'register' }">Register</router-link>
         </div>
         <div v-else>
+            <router-link :to="{ name: 'admin.dashboard' }" v-if="isAdmin">Admin panel</router-link>
             <a href="#" @click.prevent="logout">Logout</a>
         </div>
     </div>
@@ -22,6 +23,7 @@ const store = useStore();
 const router = useRouter();
 
 const authorized = computed(() => store.state.auth.authorized);
+const isAdmin = computed(() => store.getters["auth/isAdmin"]);
 
 const logout = async () => {
     await store.dispatch('auth/logout');

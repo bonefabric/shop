@@ -6,6 +6,11 @@ const access = {
         authorized: false,
         guest: true,
     },
+    adminOnly: {
+        authorized: true,
+        guest: false,
+        admin: true,
+    }
 }
 
 const routes = [
@@ -19,7 +24,6 @@ const routes = [
         path: '/register',
         component: () => import("../components/views/Register"),
         meta: {
-            layout: 'dark-layout',
             access: access.guestOnly,
         },
     },
@@ -28,8 +32,17 @@ const routes = [
         path: '/login',
         component: () => import("../components/views/Login"),
         meta: {
-            layout: 'dark-layout',
             access: access.guestOnly,
+        },
+    },
+    {
+        path: '/admin/dashboard',
+        name: 'admin.dashboard',
+        alias: '/admin',
+        component: () => import("../components/views/admin/Dashboard"),
+        meta: {
+            layout: 'admin-layout',
+            access: access.adminOnly,
         },
     },
 ];
@@ -47,6 +60,14 @@ export const addFirewall = function (store) {
                     next({name: 'login'});
                     return;
                 } else if (route.meta.access.guest && store.state.auth.authorized) {
+                    next(false);
+                    return;
+                } else if (
+                    route.meta.access.admin && (
+                    !store.state.auth.authorized ||
+                    !store.state.auth.user ||
+                    !store.state.auth.user.isAdmin))
+                {
                     next(false);
                     return;
                 }
