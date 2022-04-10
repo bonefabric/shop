@@ -8,6 +8,9 @@ use App\Http\Requests\Api\V1\RegisterRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -28,15 +31,16 @@ class AuthController extends ApiV1Controller
 
     /**
      * @param LoginRequest $loginRequest
-     * @return User|Authenticatable|void
+     * @return User|Authenticatable|Application|ResponseFactory|Response
      */
     public function login(LoginRequest $loginRequest)
     {
         // TODO add remember option
         if (Auth::attempt($loginRequest->validated()) && ($user = Auth::user())) {
-            return $user;
+            return $user->load('role');
         }
-        abort(401);
+        //TODO add translation
+        return response(['errors' => ['email' => ['Invalid credentials']]], 401);
     }
 
     public function user()
