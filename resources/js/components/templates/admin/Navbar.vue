@@ -3,7 +3,7 @@
         <div class="container mx-auto h-24 flex items-center justify-between">
             <div>
                 <router-link :to="{ name: 'admin.dashboard' }">Dashboard</router-link>
-                <router-link :to="{ name: 'admin.goods' }">Goods</router-link>
+                <router-link :to="{ name: 'admin.goods.index' }">Goods</router-link>
             </div>
             <div>
                 <router-link :to="{ name: 'index' }">Back to site</router-link>

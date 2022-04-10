@@ -1,0 +1,3 @@
+<template>
+    Goods edit
+</template>

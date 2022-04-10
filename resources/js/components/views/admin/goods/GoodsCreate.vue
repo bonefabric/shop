@@ -1,0 +1,3 @@
+<template>
+    Goods create
+</template>
